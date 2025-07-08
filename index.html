@@ -1,0 +1,543 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业APP与网站开发服务-一木科技</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#FF7D00',
+                        dark: '#333333',
+                        light: '#F5F7FA'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 35px rgba(22, 93, 255, 0.15);
+            }
+            .flip-card {
+                perspective: 1000px;
+                width: 200px;
+                height: 150px;
+                margin: 10px;
+            }
+            .flip-card-inner {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                transition: transform 0.8s;
+                transform-style: preserve-3d;
+            }
+            .flip-card:hover .flip-card-inner,
+            .flip-card:focus .flip-card-inner {
+                transform: rotateY(180deg);
+            }
+            .flip-card-front, .flip-card-back {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                backface-visibility: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 1rem;
+                border-radius: 0.75rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            }
+            .flip-card-front {
+                background-color: rgba(22, 93, 255, 0.05);
+                color: #333;
+            }
+            .flip-card-back {
+                background-color: rgba(22, 93, 255, 0.1);
+                color: #333;
+                transform: rotateY(180deg);
+            }
+            .nav-link {
+                position: relative;
+            }
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -2px;
+                left: 0;
+                background-color: #165DFF;
+                transition: width 0.3s ease;
+            }
+            .nav-link:hover::after,
+            .nav-link.active::after {
+                width: 100%;
+            }
+            .animate-fade-in {
+                animation: fadeIn 0.8s ease forwards;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-slide-up {
+                animation: slideUp 0.8s ease forwards;
+            }
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateY(40px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        }
+    </style>
+</head>
+<body class="font-inter text-dark antialiased">
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/95 shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#" class="text-2xl font-bold text-primary flex items-center">
+                <i class="fa fa-cube mr-2"></i>一木科技
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#services" class="nav-link text-dark hover:text-primary transition-colors duration-300">服务内容</a>
+                <a href="#advantages" class="nav-link text-dark hover:text-primary transition-colors duration-300">核心优势</a>
+                <a href="#contact" class="nav-link text-dark hover:text-primary transition-colors duration-300">联系我们</a>
+            </div>
+            <button class="md:hidden text-dark focus:outline-none" id="menu-toggle">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#services" class="py-2 text-dark hover:text-primary transition-colors duration-300">服务内容</a>
+                <a href="#advantages" class="py-2 text-dark hover:text-primary transition-colors duration-300">核心优势</a>
+                <a href="#contact" class="py-2 text-dark hover:text-primary transition-colors duration-300">联系我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 头部横幅 -->
+    <header class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-fade-in">
+                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight mb-6">
+                        专业<span class="text-primary">APP与网站开发</span>服务
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-xl">
+                        专注为企业打造原生/跨平台APP（覆盖安卓、iOS）与响应式网站（适配多端），提供从需求梳理到上线运维的全流程服务，助力数字化业务落地。
+                    </p>
+                    <a href="#contact" class="inline-block bg-primary hover:bg-primary/90 text-white font-medium px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        免费咨询
+                    </a>
+                </div>
+                <div class="flex flex-wrap justify-center animate-slide-up">
+                    <div class="flip-card group" tabindex="0">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-blue-100">
+                                <h3 class="font-medium">APP 开发总超预算？</h3>
+                            </div>
+                            <div class="flip-card-back bg-primary/10">
+                                <h3 class="font-medium">按功能模块逐项报价，开发前确认固定预算金额，若最终费用超出预算，超支部分由我方全额承担。</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card group" tabindex="0">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-blue-100">
+                                <h3 class="font-medium">后期维护没人管？</h3>
+                            </div>
+                            <div class="flip-card-back bg-primary/10">
+                                <h3 class="font-medium">3 个月免费运维，7×12 小时响应，随时兜底</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 核心服务 -->
+    <section id="services" class="py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] font-bold text-center mb-4">我们能做什么？</h2>
+            <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+                提供全方位的数字化解决方案，满足企业不同阶段的业务需求，助力企业快速实现数字化转型
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- APP开发 -->
+                <div class="bg-white rounded-xl card-shadow card-hover p-8 border border-gray-100">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fa fa-mobile text-primary text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">APP开发</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 p-5 rounded-lg">
+                            <h4 class="font-medium mb-2 flex items-center">
+                                <i class="fa fa-code text-primary mr-2"></i>技术覆盖
+                            </h4>
+                            <p class="text-gray-600">
+                                安卓原生（Kotlin）、iOS原生（Swift）、Flutter/React Native跨平台，适配不同成本与功能需求。
+                            </p>
+                        </div>
+                        <div class="bg-gray-50 p-5 rounded-lg">
+                            <h4 class="font-medium mb-2 flex items-center">
+                                <i class="fa fa-puzzle-piece text-primary mr-2"></i>场景适配
+                            </h4>
+                            <p class="text-gray-600">
+                                电商购物、工具应用、企业服务等APP，支持用户端、商家端双端功能开发，打通业务流程。
+                            </p>
+                        </div>
+                    </div>
+                    <a href="#contact" class="inline-block mt-6 text-primary hover:text-primary/80 font-medium flex items-center transition-colors duration-300">
+                        咨询APP开发 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <!-- 网站建设 -->
+                <div class="bg-white rounded-xl card-shadow card-hover p-8 border border-gray-100">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fa fa-globe text-primary text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">网站建设</h3>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 p-5 rounded-lg">
+                            <h4 class="font-medium mb-2 flex items-center">
+                                <i class="fa fa-sitemap text-primary mr-2"></i>类型定制
+                            </h4>
+                            <p class="text-gray-600">
+                                企业官网、营销落地页、后台管理系统，满足品牌展示、获客转化、业务管理需求。
+                            </p>
+                        </div>
+                        <div class="bg-gray-50 p-5 rounded-lg">
+                            <h4 class="font-medium mb-2 flex items-center">
+                                <i class="fa fa-mobile text-primary mr-2"></i>体验优化
+                            </h4>
+                            <p class="text-gray-600">
+                                响应式设计适配手机、电脑端，融入SEO优化，提升搜索排名与用户访问体验。
+                            </p>
+                        </div>
+                    </div>
+                    <a href="#contact" class="inline-block mt-6 text-primary hover:text-primary/80 font-medium flex items-center transition-colors duration-300">
+                        咨询网站建设 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 开发流程 -->
+    <section class="py-16 md:py-24 bg-light">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] font-bold text-center mb-4">标准化开发流程</h2>
+            <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+                遵循严格的开发流程，确保每个项目高效、高质量地完成
+            </p>
+            <div class="relative">
+                <!-- 连接线 -->
+                <div class="hidden md:block absolute left-1/2 top-10 bottom-10 w-1 bg-primary/20 transform -translate-x-1/2"></div>
+                <div class="space-y-12 md:space-y-0 relative">
+                    <!-- 步骤1 -->
+                    <div class="md:flex items-center justify-between md:relative">
+                        <div class="md:w-5/12 mb-6 md:mb-0 md:text-right">
+                            <h3 class="text-xl font-bold mb-2">需求分析</h3>
+                            <p class="text-gray-600">深入了解客户需求，明确功能和性能要求，制定详细的需求文档</p>
+                        </div>
+                        <div class="flex justify-center md:absolute left-1/2 transform -translate-x-1/2">
+                            <div class="bg-primary text-white rounded-full w-20 h-20 flex items-center justify-center text-xl font-bold shadow-lg z-10">
+                                01
+                            </div>
+                        </div>
+                        <div class="md:w-5/12 md:mt-24"></div>
+                    </div>
+                    <!-- 步骤2 -->
+                    <div class="md:flex items-center justify-between md:relative">
+                        <div class="md:w-5/12 mb-6 md:mb-0 md:text-right md:mt-24"></div>
+                        <div class="flex justify-center md:absolute left-1/2 transform -translate-x-1/2">
+                            <div class="bg-primary text-white rounded-full w-20 h-20 flex items-center justify-center text-xl font-bold shadow-lg z-10">
+                                02
+                            </div>
+                        </div>
+                        <div class="md:w-5/12">
+                            <h3 class="text-xl font-bold mb-2">UI/UX设计</h3>
+                            <p class="text-gray-600">创建美观且易用的用户界面，注重用户体验，提供交互原型</p>
+                        </div>
+                    </div>
+                    <!-- 步骤3 -->
+                    <div class="md:flex items-center justify-between md:relative">
+                        <div class="md:w-5/12 mb-6 md:mb-0 md:text-right">
+                            <h3 class="text-xl font-bold mb-2">开发实现</h3>
+                            <p class="text-gray-600">根据设计和需求进行编码实现，采用敏捷开发方法，定期交付成果</p>
+                        </div>
+                        <div class="flex justify-center md:absolute left-1/2 transform -translate-x-1/2">
+                            <div class="bg-primary text-white rounded-full w-20 h-20 flex items-center justify-center text-xl font-bold shadow-lg z-10">
+                                03
+                            </div>
+                        </div>
+                        <div class="md:w-5/12 md:mt-24"></div>
+                    </div>
+                    <!-- 步骤4 -->
+                    <div class="md:flex items-center justify-between md:relative">
+                        <div class="md:w-5/12 mb-6 md:mb-0 md:text-right md:mt-24"></div>
+                        <div class="flex justify-center md:absolute left-1/2 transform -translate-x-1/2">
+                            <div class="bg-primary text-white rounded-full w-20 h-20 flex items-center justify-center text-xl font-bold shadow-lg z-10">
+                                04
+                            </div>
+                        </div>
+                        <div class="md:w-5/12">
+                            <h3 class="text-xl font-bold mb-2">测试优化</h3>
+                            <p class="text-gray-600">进行全面测试，包括功能测试、性能                            测试、安全测试，优化系统性能</p>
+                        </div>
+                    </div>
+                    <!-- 步骤5 -->
+                    <div class="md:flex items-center justify-between md:relative">
+                        <div class="md:w-5/12 mb-6 md:mb-0 md:text-right">
+                            <h3 class="text-xl font-bold mb-2">上线部署</h3>
+                            <p class="text-gray-600">将系统部署到生产环境，进行监控和维护，确保系统稳定运行</p>
+                        </div>
+                        <div class="flex justify-center md:absolute left-1/2 transform -translate-x-1/2">
+                            <div class="bg-primary text-white rounded-full w-20 h-20 flex items-center justify-center text-xl font-bold shadow-lg z-10">
+                                05
+                            </div>
+                        </div>
+                        <div class="md:w-5/12 md:mt-24"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心优势 -->
+    <section id="advantages" class="py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] font-bold text-center mb-4">为什么选我们？</h2>
+            <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">12年行业经验，专业技术团队，为您的项目保驾护航</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-xl card-shadow card-hover border border-gray-100">
+                    <div class="bg-blue-100 w-14 h-14 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-users text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">省心托管</h3>
+                    <p class="text-gray-600">
+                        从UI设计、功能开发到测试上线，全流程专人跟进，企业无需多头对接。
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-xl card-shadow card-hover border border-gray-100">
+                    <div class="bg-blue-100 w-14 h-14 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-tags text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">透明报价</h3>
+                    <p class="text-gray-600">
+                        按功能模块拆分报价，无隐藏费用，预算清晰可控。
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-xl card-shadow card-hover border border-gray-100">
+                    <div class="bg-blue-100 w-14 h-14 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-shield text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">稳定可靠</h3>
+                    <p class="text-gray-600">
+                        严格多轮测试，保障APP与网站运行流畅，防崩溃、防漏洞。
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-xl card-shadow card-hover border border-gray-100">
+                    <div class="bg-blue-100 w-14 h-14 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa fa-headphones text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">售后无忧</h3>
+                    <p class="text-gray-600">
+                        交付后提供3个月免费技术支持，协助解决运维问题。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="contact" class="py-16 md:py-24 bg-light">
+    <div class="container mx-auto px-4">
+        <h2 class="text-[clamp(1.75rem,4vw,2.5rem)] font-bold text-center mb-4">联系我们</h2>
+        <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+            您可以通过以下方式与我们取得联系，我们将为您提供专业的解决方案
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <!-- 电话联系卡片 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 text-center transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa fa-phone text-primary text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">电话咨询</h3>
+                <p class="text-gray-600 mb-4">请说明来意</p>
+                <a href="tel:4008001234" class="inline-block text-primary font-medium text-lg">19219391230</a>
+            </div>
+            
+            <!-- 邮件联系卡片 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 text-center transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa fa-envelope text-primary text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">邮件沟通</h3>
+                <p class="text-gray-600 mb-4">我们会在24小时内回复您的邮件</p>
+                <a href="mailto:3093511963@qq.com" class="inline-block text-primary font-medium">3093511963@qq.com</a>
+            </div>
+            
+            <!-- 微信联系卡片 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 text-center transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fa fa-weixin text-primary text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">微信咨询</h3>
+                <p class="text-gray-600 mb-4">扫描二维码，添加微信</p>
+                <div class="bg-gray-100 p-3 rounded-lg inline-block mb-4">
+                <img src="./images/1.jpg" alt="二维码" class="w-32 h-32 rounded" />
+                </div>
+                <p class="text-sm text-gray-500">扫码后请备注"业务咨询"</p>
+            </div>
+        </div>
+        
+      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- 品牌信息 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-cube mr-2"></i>一木科技
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                        专注于为企业提供专业的APP与网站开发服务，助力企业数字化转型。
+                    </p>
+                </div>
+                <!-- 服务项目 -->
+                <div>
+                    <h4 class="text-lg font-medium mb-4">服务项目</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-colors duration-300">APP开发</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-colors duration-300">网站建设</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">UI/UX设计</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">运维支持</a></li>
+                    </ul>
+                </div>
+                <!-- 关于我们 -->
+                <div>
+                    <h4 class="text-lg font-medium mb-4">关于我们</h4>
+                    <p class="text-gray-400">一木科技深耕数字化服务领域，助力企业拥抱数字未来。</p>
+                </div>
+                <!-- 联系方式 -->
+                <div>
+                    <h4 class="text-lg font-medium mb-4">联系方式</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-400">北京市海淀区中关村科技园区</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope text-primary mr-3"></i>
+                            <a href="mailto:3093511963@qq.com" class="text-gray-400 hover:text-white transition-colors duration-300">3093511963@qq.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 表单提交处理（前端验证）
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            
+            // 简单验证
+            if (!name) {
+                alert('请输入您的姓名');
+                return;
+            }
+            
+            if (!phone || phone.length < 11) {
+                alert('请输入有效的手机号码');
+                return;
+            }
+            
+            // 模拟提交成功
+            alert('需求提交成功！我们将尽快与您联系。');
+            this.reset();
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('bg-white/95');
+                navbar.classList.add('bg-white');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('bg-white/95');
+                navbar.classList.remove('bg-white');
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // 关闭移动端菜单（如果打开）
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                    
+                    // 滚动到目标位置
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // 考虑导航栏高度
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
